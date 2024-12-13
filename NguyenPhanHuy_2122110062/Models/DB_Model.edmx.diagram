@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="b7405c9a9b084fca94c9c8a37b64dde1" Name="Diagram1">
+        <EntityTypeShape EntityType="EcommerceModel.Brand" Width="1.5" PointX="0.75" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="EcommerceModel.Cart" Width="1.5" PointX="3" PointY="12.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="EcommerceModel.CartItem" Width="1.5" PointX="5.25" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="EcommerceModel.Category" Width="1.5" PointX="0.75" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="EcommerceModel.OrderDetail" Width="1.5" PointX="8.25" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="EcommerceModel.Order" Width="1.5" PointX="6" PointY="16.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="EcommerceModel.Product" Width="1.5" PointX="3" PointY="6.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="EcommerceModel.Review" Width="1.5" PointX="5.25" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="EcommerceModel.User" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EcommerceModel.Wishlist" Width="1.5" PointX="5.25" PointY="11.5" IsExpanded="true" />
+        <AssociationConnector Association="EcommerceModel.FK__Products__BrandI__14270015" ManuallyRouted="false" />
+        <AssociationConnector Association="EcommerceModel.FK__Cart__UserId__22751F6C" ManuallyRouted="false" />
+        <AssociationConnector Association="EcommerceModel.FK__CartItems__CartI__2645B050" ManuallyRouted="false" />
+        <AssociationConnector Association="EcommerceModel.FK__CartItems__Produ__2739D489" ManuallyRouted="false" />
+        <AssociationConnector Association="EcommerceModel.FK__Products__Catego__1332DBDC" ManuallyRouted="false" />
+        <AssociationConnector Association="EcommerceModel.FK__OrderDeta__Order__1CBC4616" ManuallyRouted="false" />
+        <AssociationConnector Association="EcommerceModel.FK__OrderDeta__Produ__1DB06A4F" ManuallyRouted="false" />
+        <AssociationConnector Association="EcommerceModel.FK__Orders__UserId__19DFD96B" ManuallyRouted="false" />
+        <AssociationConnector Association="EcommerceModel.FK__Reviews__Product__2CF2ADDF" ManuallyRouted="false" />
+        <AssociationConnector Association="EcommerceModel.FK__Wishlists__Produ__339FAB6E" ManuallyRouted="false" />
+        <AssociationConnector Association="EcommerceModel.FK__Reviews__UserId__2DE6D218" ManuallyRouted="false" />
+        <AssociationConnector Association="EcommerceModel.FK__Wishlists__UserI__32AB8735" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,136 @@
+﻿@model IEnumerable<NguyenPhanHuy_2122110062.Models.Product>
+
+@{
+    ViewBag.Title = "Product";
+    ViewBag.Menu = "Product";
+}
+
+@if (TempData["success"] != null)
+{
+    <input type="hidden" id="success" value="@TempData["success"]" />
+}
+
+@if (TempData["error"] != null)
+{
+    <input type="hidden" id="error" value="@TempData["error"]" />
+}
+
+
+<!-- data table start -->
+<div class="col-12 mt-5">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <h4 class="header-title">Data Table Default</h4>
+                </div>
+                <div class="col-md-6 text-right">
+                    <a href="@Url.Action("Create", "Product", new {area="Admin"})" class="btn btn-xs btn-primary">Created</a>
+                </div>
+            </div>
+            <div class="data-tables">
+                <table id="dataTable" class="text-center">
+                    <thead class="bg-light text-capitalize">
+                        <tr>
+                            <th>@Html.DisplayNameFor(model => model.Title)</th>
+                            <th>@Html.DisplayNameFor(model => model.Slug)</th>
+                            <th>@Html.DisplayNameFor(model => model.Summary)</th>
+                            <th>@Html.DisplayNameFor(model => model.ImageUrl)</th>
+                            <th>@Html.DisplayNameFor(model => model.Description)</th>
+                            <th>@Html.DisplayNameFor(model => model.Price)</th>
+                            <th>@Html.DisplayNameFor(model => model.Discount)</th>
+                            <th>@Html.DisplayNameFor(model => model.Stock)</th>
+                            <th>@Html.DisplayNameFor(model => model.IsFeatured)</th>
+                            <th>@Html.DisplayNameFor(model => model.Status)</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Title)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Slug)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Summary)
+                                </td>
+                                <td>
+                                    <img style="width:40px; height:40px; border-radius:100px" src="~/Content/images/Product/@item.ImageUrl" alt="@item.ImageUrl" />
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Description)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Price)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Discount)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Stock)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.IsFeatured)
+                                </td>
+                                <td>
+                                    <button class="bg-transparent border-0">
+                                        @Ajax.ActionLink(
+                                            item.Status == true ? "Active" : "Inactive",
+                                            "Status",
+                                            new { Area = "Admin", id = item.ProductId, status = !item.Status },
+                                            new AjaxOptions
+                                            {
+                                                HttpMethod = "POST",
+                                                OnSuccess = "success"
+                                            },
+                                            new { @class = item.Status == true ? "text-success" : "text-danger", id = "status-" + item.ProductId }
+                                        )
+
+                                    </button>
+                                </td>
+                                <td>
+                                    <a class="text-info tooltip" style="font-size:20px" href="@Url.Action("Edit", "Product", new {id=item.ProductId})">
+                                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                    </a>
+                                    <a class="text-success mx-2 tooltip" style="font-size:20px" href="@Url.Action("Details", "Product", new {id=item.ProductId})">
+                                        <i class="fa fa-info" aria-hidden="true"></i>
+                                    </a>
+                                    <a class="text-danger tooltip" style="font-size:20px" href="javascript:void(0)" onclick="confirmSoftDelete(@item.ProductId)">
+                                        <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- data table end -->
+
+<script>
+    function confirmSoftDelete(ProductId) {
+        const urlTemplate = '@Url.Action("SoftDelete", "Product", new { area = "Admin", id = "id" })';
+        const url = urlTemplate.replace("id", ProductId);
+
+        Swal.fire({
+            title: 'Bạn có chắc chắn muốn xóa?',
+            text: "Thao tác này không thể hoàn tác!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Xóa',
+            cancelButtonText: 'Hủy'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = url;
+            }
+        });
+    }
+</script>

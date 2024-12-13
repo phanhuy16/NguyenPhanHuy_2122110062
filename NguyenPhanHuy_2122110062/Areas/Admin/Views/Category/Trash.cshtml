@@ -1,0 +1,94 @@
+﻿@model IEnumerable<NguyenPhanHuy_2122110062.Models.Category>
+
+@{
+    ViewBag.Title = "Trash";
+    ViewBag.Menu = "Trash";
+}
+
+@if (TempData["success"] != null)
+{
+    <input type="hidden" id="success" value="@TempData["success"]" />
+}
+
+@if (TempData["error"] != null)
+{
+    <input type="hidden" id="error" value="@TempData["error"]" />
+}
+
+<!-- data table start -->
+<div class="col-12 mt-5">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <h4 class="header-title">Data Table Default</h4>
+                </div>
+                <div class="col-md-6 text-right">
+                    <a href="@Url.Action("Index", "Category", new {area="Admin"})" class="btn btn-xs btn-primary">
+                        <i class="fa fa-angle-double-left" aria-hidden="true"></i> Back
+                    </a>
+                </div>
+            </div>
+            <div class="data-tables">
+                <table id="dataTable" class="text-center">
+                    <thead class="bg-light text-capitalize">
+                        <tr>
+                            <th>@Html.DisplayNameFor(model => model.Title)</th>
+                            <th>@Html.DisplayNameFor(model => model.Slug)</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Title)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Slug)
+                                </td>
+                                <td>
+                                    <a class="text-info mx-2" style="font-size:20px" href="@Url.Action("Restore", "Category", new {id=item.CategoryId})">
+                                        <i class="fa fa-undo" aria-hidden="true"></i>
+                                    </a>
+                                    <span>
+                                        @using (Html.BeginForm("Delete", "Category", FormMethod.Post, new { enctype = "multipart/form-data", area = "Admin", id = item.CategoryId }))
+                                        {
+                                            @Html.AntiForgeryToken()
+                                            @Html.Hidden("id", item.CategoryId)
+                                            <button type="submit" style="font-size:20px; border: none; background: none;" onclick="return confirmDelete(event, @item.CategoryId)"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                                        }
+                                    </span>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- data table end -->
+
+<script>
+    function confirmDelete(event, categoryId) {
+        event.preventDefault();
+
+        Swal.fire({
+            title: 'Bạn có chắc chắn muốn xóa?',
+            text: "Thao tác này không thể hoàn tác!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Xóa',
+            cancelButtonText: 'Hủy'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                const form = document.getElementById(categoryId);
+                if (form) form.submit();
+            }
+        });
+    }
+</script>
